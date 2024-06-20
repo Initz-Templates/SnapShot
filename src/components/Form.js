@@ -2,14 +2,39 @@ import React, { useState } from "react";
 
 const Form = ({ handleSubmit, history }) => {
   const [searchEntry, setSearchEntry] = useState("");
+
   // update search text state
-  const updateSearchInput = e => {
+  const updateSearchInput = (e) => {
     setSearchEntry(e.target.value);
   };
+
+  // Inline styles
+  const buttonStyles = {
+    backgroundColor: "#007bff", // Default button color
+    border: "none",
+    color: "white",
+    padding: "10px 20px",
+    textAlign: "center",
+    textDecoration: "none",
+    display: "inline-block",
+    fontSize: "16px",
+    margin: "4px 2px",
+    cursor: "pointer",
+    transition: "background-color 0.3s",
+  };
+
+  const buttonHoverStyles = {
+    backgroundColor: "#0056b3", // Button color on hover
+  };
+
+  const buttonDisabledStyles = {
+    backgroundColor: "#cccccc", // Button color when disabled
+  };
+
   return (
     <form
       className="search-form"
-      onSubmit={e => handleSubmit(e, history, searchEntry)}
+      onSubmit={(e) => handleSubmit(e, history, searchEntry)}
     >
       <input
         type="text"
@@ -20,8 +45,12 @@ const Form = ({ handleSubmit, history }) => {
       />
       <button
         type="submit"
-        className={`search-button ${searchEntry.trim() ? "active" : null}`}
+        className={`search-button ${searchEntry.trim() ? "active" : ""}`}
         disabled={!searchEntry.trim()}
+        style={{
+          ...buttonStyles,
+          ...(searchEntry.trim() ? buttonHoverStyles : buttonDisabledStyles),
+        }}
       >
         <svg height="32" width="32">
           <path
